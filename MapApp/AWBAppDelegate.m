@@ -40,8 +40,14 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
   // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-  CLLocationManager * locationManager = [[AWBLocationManager sharedLocationManager] locationManager];
-  [locationManager startUpdatingLocation];
+  if(CLLocationManager.locationServicesEnabled == NO){
+    //It isn't enabled, fix in settings
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Location Services Not Enabled" message:@"Go to Settings -> Privacy and turn Location Services on to use this app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+  } else {
+    CLLocationManager * locationManager = [[AWBLocationManager sharedLocationManager] locationManager];
+    [locationManager startUpdatingLocation];
+  }
 
 }
 

@@ -20,14 +20,9 @@
 	// Do any additional setup after loading the view, typically from a nib.
   
   self.locationManager = [[AWBLocationManager sharedLocationManager] locationManager];
-  if(CLLocationManager.locationServicesEnabled == NO){
-    //It isn't enabled, fix in settings
-  }
-  
   self.locationManager.delegate = self;
   self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
   self.locationManager.distanceFilter = 1000.0;
-  [self.locationManager startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,8 +47,12 @@
   pin.title = @"foo";
   pin.subtitle = @"bar";
   [self.mapView addAnnotation:pin];
-  self.mapView.centerCoordinate = pin.coordinate;
-  // with the map centered, calculate the necessary zoom and set that to the zoom level
+  
+  MKCoordinateRegion region;
+  region.center = pin.coordinate;
+  region.span.latitudeDelta = 0.1;
+  region.span.longitudeDelta = 0.1;
+  self.mapView.region = region;
 }
 
 
