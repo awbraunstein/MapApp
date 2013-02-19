@@ -44,8 +44,6 @@
 {
   MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
   pin.coordinate = location.coordinate;
-  pin.title = @"foo";
-  pin.subtitle = @"bar";
   [self.mapView addAnnotation:pin];
   
   MKCoordinateRegion region;
